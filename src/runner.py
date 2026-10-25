@@ -1,9 +1,9 @@
-from config import test_logger_exception
+from config import init_mongodb
 
 
 # @logger.catch
 def main():
-    return test_logger_exception()
+    return init_mongodb()
 
 
 if __name__ == '__main__':

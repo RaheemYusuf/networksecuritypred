@@ -14,3 +14,5 @@ Traceback (most recent call last):
     a = 1/0
 
 ZeroDivisionError: division by zero
+2026-10-25 13:16:36.034 | INFO     | config.mongodb:init_mongodb:36 - Initiating connection to Mongodb...
+2026-10-25 13:16:36.405 | INFO     | config.mongodb:init_mongodb:39 - Connected successfully.
