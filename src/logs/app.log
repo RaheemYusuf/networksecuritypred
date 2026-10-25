@@ -1,0 +1,16 @@
+2026-10-25 10:37:13.501 | INFO     | config.test:test_logger_exception:16 - Entering the try logger exception
+2026-10-25 10:37:13.501 | ERROR    | __main__:main:6 - An error has been caught in function 'main', process 'MainProcess' (23305), thread 'MainThread' (140233338474624):
+Traceback (most recent call last):
+
+  File "/home/adigun/MLOps/NetworkSecurityPred/src/runner.py", line 10, in <module>
+    main()
+    └ <function main at 0x7f8a9e4ae2a0>
+
+> File "/home/adigun/MLOps/NetworkSecurityPred/src/runner.py", line 6, in main
+    return test_logger_exception()
+           └ <function test_logger_exception at 0x7f8a9cb68040>
+
+  File "/home/adigun/MLOps/NetworkSecurityPred/src/config/test.py", line 17, in test_logger_exception
+    a = 1/0
+
+ZeroDivisionError: division by zero
