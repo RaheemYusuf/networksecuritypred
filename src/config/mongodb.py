@@ -1,7 +1,9 @@
 """
 """
+
 from loguru import logger
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
 from pymongo import MongoClient
 
 # Dynamically find the .env file located in the same directory as this script
@@ -20,26 +22,42 @@ class MongodbSettings(BaseSettings):
     )
 
     mongodb_uri: str
+    data_ingestion_collection_name: str
+    data_ingestion_database_name: str
+    data_ingestion_dir_name: str
+    data_ingestion_feature_store_dir: str
+    data_ingestion_ingested_dir: str
+    data_file_name: Path
 
 
 mongodb_settings = MongodbSettings()  # type: ignore[call-arg]
 
 
-@logger.catch
-def init_mongodb() -> None:
-    """
-    """
+class MongodbInit:
+    @logger.catch
+    def init_client(self):
+        """_summary_
 
-    uri = mongodb_settings.mongodb_uri
-    client = MongoClient(uri)
-    try:
-        logger.info('Initiating connection to Mongodb...')
-        client.admin.command('ping')
-        print('Connected successfully')
-        logger.info('Connected successfully.')
-        client.close()
+        Raises:
+            Exception: _description_
 
-    except Exception as e:
-        logger.exception(f'The following error occured: {e}')
-        raise Exception(
-            'The following error occurred: ', e)
+        Returns:
+            _type_: _description_
+        """
+        uri = mongodb_settings.mongodb_uri
+        client = MongoClient(uri)
+        try:
+            logger.info('Initiating connection to Mongodb...')
+            client.admin.command('ping')
+            print('Connected successfully')
+            logger.info('Connected successfully.')
+            return client
+
+        except Exception as e:
+            client.close()
+            logger.exception(f'The following error occured: {e}')
+            raise Exception(
+                'The following error occurred: ', e)
+
+
+mongodb_init = MongodbInit()

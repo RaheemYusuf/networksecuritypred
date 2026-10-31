@@ -49,4 +49,6 @@ def configure_logging(log_level: str) -> None:
     )
 
 
-configure_logging(log_level=LoggerSettings().log_level)
+configure_logging(
+    log_level=LoggerSettings().log_level  # type: ignore[call-arg]
+)

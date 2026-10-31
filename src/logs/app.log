@@ -1,18 +1,23 @@
-2026-10-25 10:37:13.501 | INFO     | config.test:test_logger_exception:16 - Entering the try logger exception
-2026-10-25 10:37:13.501 | ERROR    | __main__:main:6 - An error has been caught in function 'main', process 'MainProcess' (23305), thread 'MainThread' (140233338474624):
-Traceback (most recent call last):
-
-  File "/home/adigun/MLOps/NetworkSecurityPred/src/runner.py", line 10, in <module>
-    main()
-    └ <function main at 0x7f8a9e4ae2a0>
-
-> File "/home/adigun/MLOps/NetworkSecurityPred/src/runner.py", line 6, in main
-    return test_logger_exception()
-           └ <function test_logger_exception at 0x7f8a9cb68040>
-
-  File "/home/adigun/MLOps/NetworkSecurityPred/src/config/test.py", line 17, in test_logger_exception
-    a = 1/0
-
-ZeroDivisionError: division by zero
-2026-10-25 13:16:36.034 | INFO     | config.mongodb:init_mongodb:36 - Initiating connection to Mongodb...
-2026-10-25 13:16:36.405 | INFO     | config.mongodb:init_mongodb:39 - Connected successfully.
+2026-10-31 14:06:06.791 | INFO     | config.mongodb:init_client:50 - Initiating connection to Mongodb...
+2026-10-31 14:06:07.130 | INFO     | config.mongodb:init_client:53 - Connected successfully.
+2026-10-31 14:06:07.130 | INFO     | components.data_ingestion:_export_collection_as_parquet:25 - Extracting and writing to Parquet...
+2026-10-31 14:06:08.256 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic.parquet
+2026-10-31 14:06:08.284 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
+2026-10-31 14:06:08.333 | INFO     | config.db:init_db:45 - Creating table phisingData
+2026-10-31 14:06:08.374 | INFO     | config.db:init_db:57 - phisingData created.
+2026-10-31 14:06:08.457 | INFO     | components.data_ingestion:_split_data_as_train_test:67 - Performed train test split on the dataframe.
+2026-10-31 14:06:08.458 | INFO     | components.data_ingestion:_split_data_as_train_test:68 - Exited split_data_as_train_test method of Data_Ingestion().
+2026-10-31 14:06:08.458 | INFO     | components.data_ingestion:_split_data_as_train_test:72 - Saving traning and test file to db
+2026-10-31 14:06:08.458 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic_train.parquet
+2026-10-31 14:06:08.471 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
+2026-10-31 14:06:08.495 | INFO     | config.db:init_db:45 - Creating table train
+2026-10-31 14:06:08.528 | INFO     | config.db:init_db:57 - train created.
+2026-10-31 14:06:08.593 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic_test.parquet
+2026-10-31 14:06:08.601 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
+2026-10-31 14:06:08.626 | INFO     | config.db:init_db:45 - Creating table test
+2026-10-31 14:06:08.644 | INFO     | config.db:init_db:57 - test created.
+2026-10-31 14:06:08.690 | INFO     | __main__:main:9 - starting query
+2026-10-31 14:06:08.726 | INFO     | __main__:main:12 - query1 result    count_star()
+0         11055
+2026-10-31 14:06:08.756 | INFO     | __main__:main:15 - query1 result    count_star()
+0          8844
