@@ -31,36 +31,21 @@ class DataIngestion:
     def _export_data_into_feature_store(
         self,
         dataframe: pd.DataFrame,
-        file_name: str | Path | None = None,
+        file_name: Path = mongodb_settings.data_file_name,
     ):
-        output_path = Path(file_name or self.file_name)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        logger.info(f'Exporting data to {output_path}')
+        self.file_name = file_name
+        Path(self.file_name).parent.mkdir(parents=True, exist_ok=True)
+        logger.info(f'Exporting data to {self.file_name}')
         dataframe.to_parquet(
-            output_path, engine='pyarrow', compression='snappy'
+            self.file_name, engine='pyarrow', compression='snappy'
         )
         logger.info('Export completed!')
-        return dataframe, output_path
-
-    def _save_feature_to_db(
-            self,
-            data_file_name: str | Path,
-            query_string=None,
-            table_name: str = db_settings.table_name,
-    ):
-        self.table_name = table_name
-        self.file_name = data_file_name
-        if query_string is None:
-            self.query_string = f"""SELECT * FROM {self.table_name}"""
-        else:
-            self.query_string = query_string
-        db.init_db(
-            self.table_name,
-            self.file_name,  # type: ignore[call-arg]
-        )
-        return db.query_to_df(self.query_string)
+        return dataframe
 
     def _split_data_as_train_test(self, dataframe: pd.DataFrame,):
+        train_file_name = mongodb_settings.train_data_file_name
+        test_file_name = mongodb_settings.test_data_file_name
+
         train_set, test_set = train_test_split(
             dataframe, test_size=db_settings.train_test_split_ratio
         )
@@ -69,31 +54,30 @@ class DataIngestion:
             'Exited split_data_as_train_test method of Data_Ingestion().'
         )
 
-        logger.info('Saving traning and test file to db')
-        data_file_path = Path(self.file_name)
-        train_file_name = data_file_path.with_name(
-            f'{data_file_path.stem}_train.parquet'
+        self._export_data_into_feature_store(
+            train_set, file_name=train_file_name
         )
-        test_file_name = data_file_path.with_name(
-            f'{data_file_path.stem}_test.parquet'
+        logger.info(f'Training data saved into {train_file_name}')
+
+        self._export_data_into_feature_store(
+            test_set, file_name=test_file_name
         )
-        _, train_file_name = self._export_data_into_feature_store(
-            train_set, train_file_name
-        )
-        self._save_feature_to_db(
-            data_file_name=train_file_name,
-            table_name=db_settings.train_table_name,
-        )
-        _, test_file_name = self._export_data_into_feature_store(
-            test_set, test_file_name
-        )
-        self._save_feature_to_db(
-            data_file_name=test_file_name,
-            table_name=db_settings.test_table_name,
-        )
+        logger.info(f'Test data saved into {test_file_name}')
+
+    def _save_feature_to_db(
+        self,
+        query_string: str | None = None,
+        table_name: str | None = None,
+    ) -> pd.DataFrame:
+        if table_name is None:
+            table_name = db_settings.table_name
+        if query_string is None:
+            query_string = f'SELECT * FROM {table_name}'
+        db.init_db()
+        return db.query_to_df(query_string)
 
     def initiate_data_ingestion(self):
         dataframe = self._export_collection_as_parquet()
-        _, data_file_name = self._export_data_into_feature_store(dataframe)
-        dataframe = self._save_feature_to_db(data_file_name)
+        dataframe = self._export_data_into_feature_store(dataframe)
         self._split_data_as_train_test(dataframe)
+        self._save_feature_to_db()

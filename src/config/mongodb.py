@@ -28,6 +28,8 @@ class MongodbSettings(BaseSettings):
     data_ingestion_feature_store_dir: str
     data_ingestion_ingested_dir: str
     data_file_name: Path
+    train_data_file_name: Path
+    test_data_file_name: Path
 
 
 mongodb_settings = MongodbSettings()  # type: ignore[call-arg]
