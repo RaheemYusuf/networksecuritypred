@@ -11,13 +11,13 @@ class DataIngestion:
     """
     """
     def __init__(self) -> None:
-        self.file_name = mongodb_settings.data_file_name
+        self.file_name = db_settings.data_file_name
 
     def _export_collection_as_parquet(self):
         # 1. MongoDB connection
         db_name = mongodb_settings.data_ingestion_database_name
         collection_name = mongodb_settings.data_ingestion_collection_name
-        self.mongo_client = mongodb_init.init_client()
+        self.mongo_client = mongodb_init.init_mongodb_client()
         collection = self.mongo_client[db_name][collection_name]
         cursor = collection.find(
             {}, {"_id": 0}
@@ -31,7 +31,7 @@ class DataIngestion:
     def _export_data_into_feature_store(
         self,
         dataframe: pd.DataFrame,
-        file_name: Path = mongodb_settings.data_file_name,
+        file_name: Path = db_settings.data_file_name,
     ):
         self.file_name = file_name
         Path(self.file_name).parent.mkdir(parents=True, exist_ok=True)
@@ -43,8 +43,8 @@ class DataIngestion:
         return dataframe
 
     def _split_data_as_train_test(self, dataframe: pd.DataFrame,):
-        train_file_name = mongodb_settings.train_data_file_name
-        test_file_name = mongodb_settings.test_data_file_name
+        train_file_name = db_settings.train_data_file_name
+        test_file_name = db_settings.test_data_file_name
 
         train_set, test_set = train_test_split(
             dataframe, test_size=db_settings.train_test_split_ratio

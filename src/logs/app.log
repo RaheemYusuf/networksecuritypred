@@ -1,25 +1,24 @@
-
-2026-11-01 23:53:50.724 | INFO     | config.mongodb:init_client:52 - Initiating connection to Mongodb...
-2026-11-01 23:53:51.089 | INFO     | config.mongodb:init_client:55 - Connected successfully.
-2026-11-01 23:53:51.089 | INFO     | components.data_ingestion:_export_collection_as_parquet:25 - Extracting and writing to Parquet...
-2026-11-01 23:53:51.763 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic.parquet
-2026-11-01 23:53:51.788 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
-2026-11-01 23:53:51.791 | INFO     | components.data_ingestion:_split_data_as_train_test:52 - Performed train test split on the dataframe.
-2026-11-01 23:53:51.791 | INFO     | components.data_ingestion:_split_data_as_train_test:53 - Exited split_data_as_train_test method of Data_Ingestion().
-2026-11-01 23:53:51.791 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic_train.parquet
-2026-11-01 23:53:51.806 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
-2026-11-01 23:53:51.807 | INFO     | components.data_ingestion:_split_data_as_train_test:60 - Training data saved into data/network_traffic_train.parquet
-2026-11-01 23:53:51.807 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic_test.parquet
-2026-11-01 23:53:51.814 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
-2026-11-01 23:53:51.814 | INFO     | components.data_ingestion:_split_data_as_train_test:65 - Test data saved into data/network_traffic_test.parquet
-2026-11-01 23:53:51.859 | INFO     | config.db:init_db:105 - Creating table phisingData
-2026-11-01 23:53:51.898 | INFO     | config.db:init_db:117 - phisingData created.
-2026-11-01 23:53:51.899 | INFO     | config.db:init_db:105 - Creating table train
-2026-11-01 23:53:51.941 | INFO     | config.db:init_db:117 - train created.
-2026-11-01 23:53:51.941 | INFO     | config.db:init_db:105 - Creating table test
-2026-11-01 23:53:51.967 | INFO     | config.db:init_db:117 - test created.
-2026-11-01 23:53:52.065 | INFO     | __main__:main:9 - starting query
-2026-11-01 23:53:52.111 | INFO     | __main__:main:12 - query1 result    count_star()
+2026-11-26 21:45:36.257 | INFO     | config.mongodb:init_mongodb_client:52 - Initiating connection to Mongodb...
+2026-11-26 21:45:36.626 | INFO     | config.mongodb:init_mongodb_client:54 - Connected successfully.
+2026-11-26 21:45:36.626 | INFO     | components.data_ingestion:_export_collection_as_parquet:25 - Extracting and writing to Parquet...
+2026-11-26 21:45:37.353 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic.parquet
+2026-11-26 21:45:37.411 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
+2026-11-26 21:45:37.417 | INFO     | components.data_ingestion:_split_data_as_train_test:52 - Performed train test split on the dataframe.
+2026-11-26 21:45:37.417 | INFO     | components.data_ingestion:_split_data_as_train_test:53 - Exited split_data_as_train_test method of Data_Ingestion().
+2026-11-26 21:45:37.417 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic_train.parquet
+2026-11-26 21:45:37.435 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
+2026-11-26 21:45:37.436 | INFO     | components.data_ingestion:_split_data_as_train_test:60 - Training data saved into data/network_traffic_train.parquet
+2026-11-26 21:45:37.436 | INFO     | components.data_ingestion:_export_data_into_feature_store:38 - Exporting data to data/network_traffic_test.parquet
+2026-11-26 21:45:37.444 | INFO     | components.data_ingestion:_export_data_into_feature_store:42 - Export completed!
+2026-11-26 21:45:37.444 | INFO     | components.data_ingestion:_split_data_as_train_test:65 - Test data saved into data/network_traffic_test.parquet
+2026-11-26 21:45:37.556 | INFO     | config.db:init_db:105 - Creating table phisingData
+2026-11-26 21:45:37.634 | INFO     | config.db:init_db:117 - phisingData created.
+2026-11-26 21:45:37.634 | INFO     | config.db:init_db:105 - Creating table train
+2026-11-26 21:45:37.677 | INFO     | config.db:init_db:117 - train created.
+2026-11-26 21:45:37.677 | INFO     | config.db:init_db:105 - Creating table test
+2026-11-26 21:45:37.701 | INFO     | config.db:init_db:117 - test created.
+2026-11-26 21:45:37.792 | INFO     | __main__:main:9 - starting query
+2026-11-26 21:45:37.831 | INFO     | __main__:main:12 - query1 result    count_star()
 0         11055
-2026-11-01 23:53:52.162 | INFO     | __main__:main:15 - query1 result    count_star()
+2026-11-26 21:45:37.867 | INFO     | __main__:main:15 - query1 result    count_star()
 0          8844

@@ -1,18 +1,26 @@
 """
+MongoDB configuration and connection helpers.
+
+This module centralises MongoDB configuration for the project and provides
+functionalities for:
+- innitialisation of the MongoDB database config details
 """
 
 from loguru import logger
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pathlib import Path
 from pymongo import MongoClient
-
-# Dynamically find the .env file located in the same directory as this script
-# CURRENT_DIR = Path(__file__).resolve().parent
-# ENV_PATH = f'{CURRENT_DIR}/.env'
 
 
 class MongodbSettings(BaseSettings):
     """
+    MongoDB database configuration settings for the application.
+
+    Attributes:
+        model_config (SettingsConfigDict): Model config,
+        loaded from .env file.
+        mongodb_uri (str): MongoDB connection strings.
+        data_ingestion_collection_name (str): MongoDB database collection name.
+        dat_ingestion_database_name (str): MongoDB database name.
     """
 
     model_config = SettingsConfigDict(
@@ -24,34 +32,37 @@ class MongodbSettings(BaseSettings):
     mongodb_uri: str
     data_ingestion_collection_name: str
     data_ingestion_database_name: str
-    data_ingestion_dir_name: str
-    data_ingestion_feature_store_dir: str
-    data_ingestion_ingested_dir: str
-    data_file_name: Path
-    train_data_file_name: Path
-    test_data_file_name: Path
 
 
 mongodb_settings = MongodbSettings()  # type: ignore[call-arg]
 
 
 class MongodbInit:
-    @logger.catch
-    def init_client(self):
-        """_summary_
+    """
+    Initialisation of the MongoDB Client
 
-        Raises:
-            Exception: _description_
+    This class provides the functionality to initialise the MongoDB database.
+
+    Attribute:
+        uri: MongoDB connection string.
+
+    Method:
+        init_mongodb_client: It initialises the mongodb db and create a client
+        for mongodb connection.
+    """
+    @logger.catch
+    def init_mongodb_client(self):
+        """It initialises the mongodb db and create a client
+        for mongodb connection.
 
         Returns:
-            _type_: _description_
+            mongodb client.
         """
         uri = mongodb_settings.mongodb_uri
         client = MongoClient(uri)
         try:
             logger.info('Initiating connection to Mongodb...')
             client.admin.command('ping')
-            print('Connected successfully')
             logger.info('Connected successfully.')
             return client
 
