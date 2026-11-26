@@ -1,4 +1,5 @@
-"""Database configuration and connection helpers.
+"""
+Database configuration and connection helpers.
 
 This module centralizes database configuration for the project and provides
 a thin DuckDB wrapper for:
@@ -117,6 +118,16 @@ class DatabaseCon:
 
     def query_to_df(self, query_string: str) -> pd.DataFrame:
         """
+        queries the table in the database.
+
+        Takes a query_string and return the result in a
+        pandas dataframe.
+
+        Arg:
+            query_string (str): The SQL query to be sent to the database.
+
+        Returns:
+            pd.DataFrame
         """
         with duckdb.connect(self.db_conn_str) as con:
             return con.sql(query_string).df()
