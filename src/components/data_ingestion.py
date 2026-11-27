@@ -1,3 +1,14 @@
+"""
+This module provides functionalities to load data from a mongoDB database
+and load it to a duckdb database.
+
+It includes functions to:
+- export data collection from MongoDB and save as parquet.
+- save the data into feature store.
+- split the saved data into train and test data.
+- save the splitted data into a database.
+"""
+
 import pandas as pd
 from pathlib import Path
 from loguru import logger
@@ -9,6 +20,20 @@ from config import mongodb_settings, mongodb_init
 
 class DataIngestion:
     """
+    Data ingestion setup for the application.
+
+    Attributes:
+        db_name: MongoDB database name.
+        collection_name: MongoDB collection name.
+
+    Methods:
+        __init__: Constructor that initialises the DataIngestion.
+        _export_collection_as_parquet: This export MongoDB collection and
+            and save it as a parquet
+        _export_data_into_feature_store: This export the data from MongoDB.
+        _split_data_as_train_test: Splits the data into train and test data.
+        _save_feature_to_db: Saves the splitted data into a database.
+        initiate_data_ingestion: This initiate the data ingestion.
     """
     def __init__(self) -> None:
         self.file_name = db_settings.data_file_name
